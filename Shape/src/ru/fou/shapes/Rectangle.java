@@ -1,6 +1,8 @@
 package ru.fou.shapes;
 
-public class Rectangle implements Shape, Comparable<Rectangle> {
+import java.util.Objects;
+
+public class Rectangle implements Shape {
     private double width;
     private double height;
 
@@ -26,13 +28,24 @@ public class Rectangle implements Shape, Comparable<Rectangle> {
     }
 
     @Override
-    public int compareTo(Rectangle o) {
-        if (this.getArea() == o.getArea()){
-            return 0;
-        } else if (this.getArea() < o.getArea()){
-            return -1;
-        } else {
-            return 1;
+    public String toString() {
+        return this.getClass().getSimpleName() + ", " + "Width = " + getWidth() + ", " + "Height = " + getHeight() + ", " + " Area = " + getArea() + ", " + "Perimeter = " + getPerimeter();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
         }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Rectangle rectangle = (Rectangle) o;
+        return Double.compare(rectangle.width, width) == 0 && Double.compare(rectangle.height, height) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(width, height);
     }
 }

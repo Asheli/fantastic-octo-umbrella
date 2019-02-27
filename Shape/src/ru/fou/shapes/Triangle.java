@@ -1,5 +1,6 @@
 package ru.fou.shapes;
 
+import java.util.Arrays;
 
 public class Triangle implements Shape {
     private Point point1;
@@ -30,6 +31,39 @@ public class Triangle implements Shape {
 
     public double getPerimeter() {
         return getLength(point1, point2) + getLength(point1, point3) + getLength(point2, point3);
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + ", " + "Width = " + getWidth() + ", " + "Height = " + getHeight() + ", " + " Area = " + getArea() + ", " + "Perimeter = " + getPerimeter();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        double[] lengths = new double[]{getLength(this.point1, this.point2), getLength(this.point1, this.point3), getLength(this.point2, this.point3)};
+        Arrays.sort(lengths);
+        Triangle triangle = (Triangle) o;
+        double[] triangleLengths = new double[]{getLength(triangle.point1, triangle.point2), getLength(triangle.point1, triangle.point3), getLength(triangle.point2, triangle.point3)};
+        Arrays.sort(triangleLengths);
+        return Arrays.equals(lengths, triangleLengths);
+    }
+
+    @Override
+    public int hashCode() {
+        double[] lengths = new double[]{getLength(this.point1, this.point2), getLength(this.point1, this.point3), getLength(this.point2, this.point3)};
+        final int prime = 17;
+        int hash = 1;
+
+        for (double length : lengths) {
+            hash = prime * hash + Double.hashCode(length);
+        }
+        return hash;
     }
 }
 
