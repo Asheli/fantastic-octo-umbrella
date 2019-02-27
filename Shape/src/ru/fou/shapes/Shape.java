@@ -3,7 +3,7 @@ package ru.fou.shapes;
 public interface Shape {
     double getWidth();
 
-    double  getHeight();
+    double getHeight();
 
     double getArea();
 

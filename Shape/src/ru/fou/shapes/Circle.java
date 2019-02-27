@@ -1,6 +1,6 @@
 package ru.fou.shapes;
 
-public class Circle implements Shape {
+public class Circle extends AreaComparator implements Shape{
     private double radius;
 
     public Circle(double radius) {
