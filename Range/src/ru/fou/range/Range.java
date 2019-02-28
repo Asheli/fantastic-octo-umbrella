@@ -5,17 +5,22 @@ public class Range {
     private double to;
 
     public Range(double from, double to) {
-        this.from = from;
-        this.to = to;
+        if (from <= to) {
+            this.from = from;
+            this.to = to;
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 
     public Range getIntersection(Range range) {
-        if (this.from <= range.getTo() && this.to >= range.getFrom()) {
-            double from = Math.max(this.from, range.getFrom());
-            double to = Math.min(this.to, range.getTo());
+        if (this.from < range.getTo() && this.to > range.from) {
+            double from = Math.max(this.from, range.from);
+            double to = Math.min(this.to, range.to);
             return new Range(from, to);
-        } else
+        } else {
             return null;
+        }
     }
 
     public String toString() {
@@ -23,9 +28,9 @@ public class Range {
     }
 
     public Range[] getSum(Range range) {
-        if (this.from <= range.getTo() && this.to >= range.getFrom()) {
-            double from = Math.min(this.from, range.getFrom());
-            double to = Math.max(this.to, range.getTo());
+        if (this.from <= range.to && this.to >= range.from) {
+            double from = Math.min(this.from, range.from);
+            double to = Math.max(this.to, range.to);
             return new Range[]{new Range(from, to)};
         } else {
             return new Range[]{new Range(this.from, this.to), new Range(range.from, range.to)};
@@ -33,8 +38,8 @@ public class Range {
     }
 
     public Range[] getDifference(Range range) {
-        if ((this.from > range.getFrom() && this.to > range.getFrom()) || (this.from < range.getFrom() && this.to < range.getFrom())) {
-            return null;
+        if ((this.from > range.to) || (this.to < range.from)) {
+            return new Range[0];
         }
         if ((this.from < range.getFrom() && (this.to > range.getTo()))) {
             return new Range[]{new Range(from, range.getFrom()), new Range(range.getTo(), this.to)};
@@ -44,6 +49,7 @@ public class Range {
             return new Range[]{new Range(range.getTo(), this.to)};
         }
     }
+
 
     public double getFrom() {
         return from;
