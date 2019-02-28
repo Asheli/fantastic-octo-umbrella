@@ -1,7 +1,5 @@
 package ru.fou.shapes;
 
-import java.util.Objects;
-
 public class Square implements Shape {
     private double sideLength;
 
@@ -9,22 +7,25 @@ public class Square implements Shape {
         this.sideLength = sideLength;
     }
 
+    @Override
     public double getWidth() {
         return sideLength;
     }
 
+    @Override
     public double getHeight() {
         return sideLength;
     }
 
+    @Override
     public double getArea() {
         return sideLength * sideLength;
     }
 
+    @Override
     public double getPerimeter() {
         return 2 * (getHeight() + getWidth());
     }
-
 
     @Override
     public String toString() {
@@ -45,6 +46,6 @@ public class Square implements Shape {
 
     @Override
     public int hashCode() {
-        return Objects.hash(sideLength);
+        return Double.hashCode(sideLength);
     }
 }

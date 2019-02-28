@@ -1,6 +1,5 @@
 package ru.fou.shapes;
 
-import java.util.Objects;
 
 public class Rectangle implements Shape {
     private double width;
@@ -11,18 +10,22 @@ public class Rectangle implements Shape {
         this.height = height;
     }
 
+    @Override
     public double getWidth() {
         return width;
     }
 
+    @Override
     public double getHeight() {
         return height;
     }
 
+    @Override
     public double getArea() {
         return width * height;
     }
 
+    @Override
     public double getPerimeter() {
         return 2 * (getHeight() + getWidth());
     }
@@ -46,6 +49,10 @@ public class Rectangle implements Shape {
 
     @Override
     public int hashCode() {
-        return Objects.hash(width, height);
+        final int prime = 37;
+        int hash = 1;
+        hash = prime * hash + Double.hashCode(width);
+        hash = prime * hash + Double.hashCode(height);
+        return hash;
     }
 }

@@ -2,8 +2,6 @@ package ru.fou.shapes;
 
 import ru.fou.shapes.ShapeMain.AreaComparator;
 
-import java.util.Objects;
-
 public class Circle extends AreaComparator implements Shape {
     private double radius;
 
@@ -11,25 +9,29 @@ public class Circle extends AreaComparator implements Shape {
         this.radius = radius;
     }
 
+    @Override
     public double getWidth() {
         return radius * 2;
     }
 
+    @Override
     public double getHeight() {
         return radius * 2;
     }
 
+    @Override
     public double getArea() {
         return Math.PI * Math.pow(radius, 2);
     }
 
+    @Override
     public double getPerimeter() {
         return 2 * Math.PI * radius;
     }
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + ", " + "Width = " + getWidth() + ", " + "Height = " + getHeight() + ", " + " Area = " + getArea() + ", " + "Perimeter = " + getPerimeter();
+        return this.getClass().getSimpleName() + ", " + "Width = " + getWidth() + ", " + "Height = " + getHeight() + ", " + " Area = " + getArea() + ", " + "Perimeter = " + getPerimeter() + ", Radius = " + radius;
     }
 
     @Override
@@ -46,6 +48,6 @@ public class Circle extends AreaComparator implements Shape {
 
     @Override
     public int hashCode() {
-        return Objects.hash(radius);
+        return Double.hashCode(radius);
     }
 }
