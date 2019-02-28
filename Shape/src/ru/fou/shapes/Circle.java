@@ -1,5 +1,7 @@
 package ru.fou.shapes;
 
+import ru.fou.shapes.ShapeMain.AreaComparator;
+
 import java.util.Objects;
 
 public class Circle extends AreaComparator implements Shape {

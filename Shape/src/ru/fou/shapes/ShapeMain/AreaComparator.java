@@ -1,4 +1,6 @@
-package ru.fou.shapes;
+package ru.fou.shapes.ShapeMain;
+
+import ru.fou.shapes.Shape;
 
 import java.util.Comparator;
 

@@ -13,6 +13,11 @@ public class Range {
         }
     }
 
+    private Range(Range range) {
+        this.from = range.from;
+        this.to = range.to;
+    }
+
     public Range getIntersection(Range range) {
         if (this.from < range.getTo() && this.to > range.from) {
             double from = Math.max(this.from, range.from);
@@ -33,7 +38,7 @@ public class Range {
             double to = Math.max(this.to, range.to);
             return new Range[]{new Range(from, to)};
         } else {
-            return new Range[]{new Range(this.from, this.to), new Range(range.from, range.to)};
+            return new Range[]{new Range(this), new Range(range)};
         }
     }
 
