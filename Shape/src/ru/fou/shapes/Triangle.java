@@ -7,9 +7,13 @@ public class Triangle implements Shape {
     private Point point3;
 
     public Triangle(Point point1, Point point2, Point point3) {
-        this.point1 = point1;
-        this.point2 = point2;
-        this.point3 = point3;
+        if (point1 == null || point2 == null || point3 == null) {
+            throw new IllegalArgumentException("point can't be null");
+        } else {
+            this.point1 = point1;
+            this.point2 = point2;
+            this.point3 = point3;
+        }
     }
 
     private static double getLength(Point point1, Point point2) {
@@ -50,16 +54,16 @@ public class Triangle implements Shape {
             return false;
         }
         Triangle triangle = (Triangle) o;
-        return point1 == triangle.point1 && point2 == triangle.point2 && point3 == triangle.point3;
+        return point1.equals(triangle.point1) && point2.equals(triangle.point2) && point3.equals(triangle.point3);
     }
 
     @Override
     public int hashCode() {
         final int prime = 7;
         int hash = 1;
-        hash = prime * hash + (point1 != null ? point1.hashCode() : 0);
-        hash = prime * hash + (point2 != null ? point2.hashCode() : 0);
-        hash = prime * hash + (point3 != null ? point3.hashCode() : 0);
+        hash = prime * hash + point1.hashCode();
+        hash = prime * hash + point2.hashCode();
+        hash = prime * hash + point3.hashCode();
         return hash;
     }
 }
