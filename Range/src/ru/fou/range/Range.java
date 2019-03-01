@@ -19,7 +19,7 @@ public class Range {
     }
 
     public Range getIntersection(Range range) {
-        if (this.from < range.getTo() && this.to > range.from) {
+        if (this.from < range.to && this.to > range.from) {
             double from = Math.max(this.from, range.from);
             double to = Math.min(this.to, range.to);
             return new Range(from, to);
@@ -43,15 +43,16 @@ public class Range {
     }
 
     public Range[] getDifference(Range range) {
-        if ((this.from > range.to) || (this.to < range.from)) {
+        if ((this.from >= range.from) && (this.to <= range.to)) {
             return new Range[0];
-        }
-        if ((this.from < range.getFrom() && (this.to > range.getTo()))) {
-            return new Range[]{new Range(from, range.getFrom()), new Range(range.getTo(), this.to)};
-        } else if ((this.from < range.getFrom())) {
-            return new Range[]{new Range(from, range.getFrom())};
+        } else if ((this.from >= range.to) || (this.to <= range.from)) {
+            return new Range[]{new Range(this)};
+        } else if ((this.from < range.from && (this.to > range.to))) {
+            return new Range[]{new Range(from, range.from), new Range(range.to, this.to)};
+        } else if ((this.from < range.from)) {
+            return new Range[]{new Range(from, range.from)};
         } else {
-            return new Range[]{new Range(range.getTo(), this.to)};
+            return new Range[]{new Range(range.to, this.to)};
         }
     }
 
