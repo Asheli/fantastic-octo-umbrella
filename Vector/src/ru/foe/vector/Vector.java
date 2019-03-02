@@ -1,7 +1,7 @@
 package ru.foe.vector;
 
 import java.util.Arrays;
-import java.util.Objects;
+
 
 public class Vector {
     private double[] components;
@@ -25,7 +25,7 @@ public class Vector {
         }
     }
 
-    public Vector(int n) {
+    private Vector(int n) {
         if (n <= 0) {
             throw new IllegalArgumentException("vector length must be > 0");
         }
@@ -43,47 +43,18 @@ public class Vector {
     }
 
     public Vector addVector(Vector vector) {
-        if (this.n < vector.n) {
-            double[] temp = this.components;
-            this.components = new double[vector.n];
-
-            for (int i = 0; i < vector.n; i++) {
-                if (i < temp.length) {
-                    this.components[i] = temp[i] + vector.components[i];
-                } else {
-                    this.components[i] = vector.components[i];
-                }
-            }
-        } else {
-            for (int i = 0; i < this.n; i++) {
-                if (i < vector.components.length) {
-                    this.components[i] = this.components[i] + vector.components[i];
-                }
-            }
-        }
-        return new Vector(this);
+        Vector vectorResult = Vector.SumVectors(new Vector(this), vector);
+        this.components = vector.components;
+        this.n = vector.n;
+        return vectorResult;
     }
 
 
     public Vector subtractVector(Vector vector) {
-        if (this.n < vector.n) {
-            double[] temp = this.components;
-            this.components = new double[vector.n];
-
-            for (int i = 0; i < vector.n; i++) {
-                if (i < temp.length) {
-                    this.components[i] = temp[i] - vector.components[i];
-                } else {
-                    this.components[i] = -vector.components[i];
-                }
-            }
-        }
-        for (int i = 0; i < this.n; i++) {
-            if (i < vector.components.length) {
-                this.components[i] = components[i] - vector.components[i];
-            }
-        }
-        return new Vector(this);
+        Vector vectorResult = Vector.getDifferenceVectors(new Vector(this), vector);
+        this.components = vector.components;
+        this.n = vector.n;
+        return vectorResult;
     }
 
     public void multiplyByScalar(int scalar) {
@@ -115,10 +86,43 @@ public class Vector {
         return Math.sqrt(lengthResult);
     }
 
+    public static Vector getDifferenceVectors(Vector vector1, Vector vector2) {
+        if (vector1.n < vector2.n) {
+            double[] temp = vector1.components;
+            vector1 = new Vector(vector2.n);
+
+            for (int i = 0; i < vector2.n; i++) {
+                if (i < temp.length) {
+                    vector1.components[i] = temp[i] - vector2.components[i];
+                } else {
+                    vector1.components[i] = -vector2.components[i];
+                }
+            }
+        } else {
+            for (int i = 0; i < vector1.n; i++) {
+                if (i < vector2.components.length) {
+                    vector1.components[i] = vector1.components[i] - vector2.components[i];
+                }
+            }
+        }
+        return new Vector(vector1);
+    }
+
+    public static double getVectorsScalarMultiplication(Vector vector1, Vector vector2) {
+        int minLength = vector1.n < vector2.n ? vector1.n : vector2.n;
+        double result = 0;
+
+        for (int i = 0; i < minLength; i++) {
+            result += vector1.components[i] * vector2.components[i];
+        }
+        return result;
+    }
+
+
     public static Vector SumVectors(Vector vector1, Vector vector2) {
         if (vector1.n < vector2.n) {
             double[] temp = vector1.components;
-            vector1.components = new double[vector2.n];
+            vector1 = new Vector(vector2.n);
 
             for (int i = 0; i < vector2.n; i++) {
                 if (i < temp.length) {
@@ -160,16 +164,14 @@ public class Vector {
 
     @Override
     public String toString() {
-        String result = "{";
+        StringBuilder sb = new StringBuilder();
+        sb.append("{ ");
+
         for (int i = 0; i < this.n; i++) {
-            result += this.components[i];
-            for (i = 1; i < this.n; i++) {
-                result += ", " + this.components[i];
-            }
+            sb.append(this.components[i]);
+            sb.append(", ");
         }
-        return result + "}";
+        sb.replace(sb.length() - 2, sb.length() - 1, " }");
+        return sb.toString();
     }
 }
-
-
-
