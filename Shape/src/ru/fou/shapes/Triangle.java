@@ -9,11 +9,10 @@ public class Triangle implements Shape {
     public Triangle(Point point1, Point point2, Point point3) {
         if (point1 == null || point2 == null || point3 == null) {
             throw new IllegalArgumentException("point can't be null");
-        } else {
-            this.point1 = point1;
-            this.point2 = point2;
-            this.point3 = point3;
         }
+        this.point1 = point1;
+        this.point2 = point2;
+        this.point3 = point3;
     }
 
     private static double getLength(Point point1, Point point2) {
