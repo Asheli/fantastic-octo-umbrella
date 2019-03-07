@@ -30,7 +30,7 @@ public class VectorMain {
         System.out.println("Проверка на равенство векторов: " + vector8.equals(vector9));
         System.out.println(vector8.hashCode());
         System.out.println(vector9.hashCode());
-        vector9.setComponent(2,10.0);
+        vector9.setComponent(2, 10.0);
         System.out.println("Замена компонента по заданному индексу " + vector9);
         System.out.println(vector10);
     }
