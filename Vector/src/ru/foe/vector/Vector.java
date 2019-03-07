@@ -21,11 +21,11 @@ public class Vector {
         Arrays.fill(this.components, components.length, components.length, 0);
     }
 
-    public Vector(int vectorDimension) {
-        if (vectorDimension <= 0) {
+    public Vector(int dimension) {
+        if (dimension <= 0) {
             throw new IllegalArgumentException("vector length must be > 0");
         }
-        components = new double[vectorDimension];
+        components = new double[dimension];
     }
 
     private Vector(Vector vector) {
