@@ -22,15 +22,17 @@ public class VectorMain {
         System.out.println("Разворот вектора: " + vector3);
         System.out.println("Длина вектора: " + vector1.getLength());
         System.out.println("Компонента вектора по заданному индексу: " + vector4.getComponent(3));
-        System.out.println("Прибавление к заданному вектору другой вектор: " + vector7.add(vector8));
+        vector7.add(vector8);
+        System.out.println("Прибавление к заданному вектору другой вектор: " + vector7);
         System.out.println("Разность векторов: " + Vector.getDifference(new Vector(new double[]{1.0, 3.0, 4.0, 5.0}), new Vector(new double[]{-1.0, 3.0, -4.0, 5.0, 4.1, -3.1})));
         System.out.println("Скалярное произведение векторов: " + Vector.getScalarMultiplication(new Vector(new double[]{1.0, 3.0, 4.0, 5.0}), new Vector(new double[]{-1.0, 3.0, -4.0, 5.0, 4.1, -3.1})));
-        System.out.println("Вычитание из одного вектора другой: " + vector4.subtract(vector6));
+        vector4.subtract(vector6);
+        System.out.println("Вычитание из одного вектора другой: " + vector4);
         System.out.println("Сумма векторов: " + Vector.getSum(vector5, vector1));
         System.out.println("Проверка на равенство векторов: " + vector8.equals(vector9));
         System.out.println(vector8.hashCode());
         System.out.println(vector9.hashCode());
-        vector9.setComponent(2, 10.0);
+        vector9.setComponent(3, 10.0);
         System.out.println("Замена компонента по заданному индексу " + vector9);
         System.out.println(vector10);
     }
