@@ -15,6 +15,8 @@ public class VectorMain {
         Vector vector9 = new Vector(8, new double[]{2.0, 2.0, -5.0, 12.1, 5.8});
         Vector vector10 = new Vector(10);
 
+        vector7.add(vector8);
+        System.out.println("Прибавление к заданному вектору другой вектор: " + vector7);
         System.out.println("Размер вектора 2: " + vector2.getSize());
         vector2.multiplyByScalar(5);
         System.out.println("Умножение вектора на скаляр: " + vector2);
@@ -22,8 +24,7 @@ public class VectorMain {
         System.out.println("Разворот вектора: " + vector3);
         System.out.println("Длина вектора: " + vector1.getLength());
         System.out.println("Компонента вектора по заданному индексу: " + vector4.getComponent(3));
-        vector7.add(vector8);
-        System.out.println("Прибавление к заданному вектору другой вектор: " + vector7);
+
         System.out.println("Разность векторов: " + Vector.getDifference(new Vector(new double[]{1.0, 3.0, 4.0, 5.0}), new Vector(new double[]{-1.0, 3.0, -4.0, 5.0, 4.1, -3.1})));
         System.out.println("Скалярное произведение векторов: " + Vector.getScalarMultiplication(new Vector(new double[]{1.0, 3.0, 4.0, 5.0}), new Vector(new double[]{-1.0, 3.0, -4.0, 5.0, 4.1, -3.1})));
         vector4.subtract(vector6);

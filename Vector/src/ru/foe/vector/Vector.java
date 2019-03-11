@@ -36,30 +36,20 @@ public class Vector {
     }
 
     public void add(Vector vector) {
-        Vector temp = new Vector(this);
-        this.components = new double[Math.max(temp.getSize(), vector.getSize())];
-
-        for (int i = 0; i < this.getSize(); i++) {
-            if (i < temp.getSize()) {
-                components[i] += temp.getComponent(i);
-            }
-            if (i < vector.getSize()) {
-                components[i] += vector.getComponent(i);
-            }
+        if (this.getSize() < vector.getSize()) {
+            this.components = Arrays.copyOf(this.components, vector.getSize());
+        }
+        for (int i = 0; i < vector.getSize(); i++) {
+            this.components[i] += vector.components[i];
         }
     }
 
     public void subtract(Vector vector) {
-        Vector temp = new Vector(this);
-        this.components = new double[Math.max(temp.getSize(), vector.getSize())];
-
-        for (int i = 0; i < this.getSize(); i++) {
-            if (i < temp.getSize()) {
-                components[i] += temp.getComponent(i);
-            }
-            if (i < vector.getSize()) {
-                components[i] -= vector.getComponent(i);
-            }
+        if (getSize() < vector.getSize()) {
+            this.components = Arrays.copyOf(this.components, vector.getSize());
+        }
+        for (int i = 0; i < vector.getSize(); i++) {
+            this.components[i] -= vector.components[i];
         }
     }
 
@@ -97,15 +87,13 @@ public class Vector {
     }
 
     public static Vector getDifference(Vector vector1, Vector vector2) {
-        Vector result = new Vector(Math.max(vector1.getSize(), vector2.getSize()));
-        result.add(vector1);
+        Vector result = new Vector(vector1);
         result.subtract(vector2);
         return result;
     }
 
     public static Vector getSum(Vector vector1, Vector vector2) {
-        Vector result = new Vector(Math.max(vector1.getSize(), vector2.getSize()));
-        result.add(vector1);
+        Vector result = new Vector(vector1);
         result.add(vector2);
         return result;
     }
