@@ -1,26 +1,27 @@
 package ru.foe.list.ListMain;
 
 
+import java.util.Iterator;
 
 public class SinglyLinkedList<T> {
-    private ListItem head;
+    private ListItem<T> head;
     private int size;
 
     public int getSize() {
         return size;
     }
 
-    public ListItem getFirst() {
+    public ListItem<T> getFirst() {
         if (head == null) {
             throw new NullPointerException("first element can't be null");
         }
         return head;
     }
 
-    public SinglyLinkedList copy() {
-        SinglyLinkedList newList = new SinglyLinkedList();
+    public SinglyLinkedList<T> copy() {
+        SinglyLinkedList<T> newList = new SinglyLinkedList<>();
 
-        ListItem current = head;
+        ListItem<T> current = head;
 
         while (current != null) {
             newList.addFront(current.getData());
@@ -57,7 +58,7 @@ public class SinglyLinkedList<T> {
     }
 
     public T removeByIndex(int index) {
-        ListItem current = head;
+        ListItem<T> current = head;
         ListItem<T> parentItem = null;
 
         for (int i = 0; i < index; i++) {
@@ -67,7 +68,7 @@ public class SinglyLinkedList<T> {
         if (parentItem != null) {
             parentItem.setNext(current.getNext());
         }
-        return (T) current.getData();
+        return current.getData();
     }
 
     public void addFront(T data) {
@@ -127,7 +128,7 @@ public class SinglyLinkedList<T> {
     }
 
     public void reverse() {
-        ListItem<T> next = null;
+        ListItem<T> next;
         ListItem<T> current = head;
         ListItem<T> parent = null;
         while (current != null) {
@@ -146,9 +147,24 @@ public class SinglyLinkedList<T> {
         sb.append("LinkedList:\n");
         ListItem<T> current = head;
         while (current != null) {
-            sb.append(current.getData() + "\n");
+            sb.append(current.getData()).append("\n");
             current = current.getNext();
         }
         return sb.toString();
     }
+
+    /* private class MyListIterator implements Iterator<T> {
+        private int currentIndex = -1;
+
+        public boolean hasNext() {
+            return currentIndex + 1 < size;
+        }
+            public T next() {
+            ++currentIndex;
+            return T(currentIndex); }
+    }
+    public Iterator<T> iterator() {
+        return new MyListIterator();
+    }*/
+
 }
