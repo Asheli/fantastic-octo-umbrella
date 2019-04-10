@@ -1,11 +1,18 @@
 package ru.foe.list.ListMain;
 
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class SinglyLinkedList<T> {
     private ListItem<T> head;
     private int size;
+    private int modCount;
+
+    public SinglyLinkedList() {
+        this.modCount = 0;
+    }
 
     public int getSize() {
         return size;
@@ -16,6 +23,12 @@ public class SinglyLinkedList<T> {
             throw new NullPointerException("first element can't be null");
         }
         return head;
+    }
+
+    private void checkIndex(int index){
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
     }
 
     public SinglyLinkedList<T> copy() {
@@ -33,7 +46,10 @@ public class SinglyLinkedList<T> {
 
 
     public T getItem(int index) {
+        checkIndex(index);
+
         ListItem<T> current = head;
+
         for (int i = 0; i < index; i++) {
             current = current.getNext();
         }
@@ -42,6 +58,8 @@ public class SinglyLinkedList<T> {
 
 
     public T setItem(int index, T data) {
+        checkIndex(index);
+
         ListItem<T> current = head;
         ListItem<T> parentItem = null;
         ListItem<T> newItem = new ListItem<>(data);
@@ -58,6 +76,8 @@ public class SinglyLinkedList<T> {
     }
 
     public T removeByIndex(int index) {
+        checkIndex(index);
+
         ListItem<T> current = head;
         ListItem<T> parentItem = null;
 
@@ -72,7 +92,7 @@ public class SinglyLinkedList<T> {
     }
 
     public void addFront(T data) {
-        ListItem<T> newItem = new ListItem<>(data);
+        ListItem<T> newItem = new ListItem<>(data, head);
 
         if (head == null) {
             head = newItem;
@@ -83,6 +103,8 @@ public class SinglyLinkedList<T> {
     }
 
     public void insertByIndex(int index, T data) {
+        checkIndex(index);
+
         ListItem<T> newItem = new ListItem<>(data);
         ListItem<T> current = head;
         ListItem<T> parentItem = null;
@@ -123,7 +145,6 @@ public class SinglyLinkedList<T> {
     public ListItem<T> removeFirst() {
         ListItem<T> temp = head;
         head = head.getNext();
-
         return temp;
     }
 
@@ -131,6 +152,7 @@ public class SinglyLinkedList<T> {
         ListItem<T> next;
         ListItem<T> current = head;
         ListItem<T> parent = null;
+
         while (current != null) {
             next = current.getNext();
             current.setNext(parent);
@@ -146,6 +168,7 @@ public class SinglyLinkedList<T> {
         StringBuilder sb = new StringBuilder();
         sb.append("LinkedList:\n");
         ListItem<T> current = head;
+
         while (current != null) {
             sb.append(current.getData()).append("\n");
             current = current.getNext();
@@ -153,18 +176,53 @@ public class SinglyLinkedList<T> {
         return sb.toString();
     }
 
-    /* private class MyListIterator implements Iterator<T> {
-        private int currentIndex = -1;
+    private class MyListIterator implements Iterator<T> {
+        ListItem<T> current;
+        ListItem<T> previous;
+        ListItem<T> next;
+        int expectedModCount = modCount;
+
+        MyListIterator() {
+            next = head;
+        }
+
+        public T next() {
+            checkForModification();
+
+            if (next == null) {
+                throw new NoSuchElementException();
+            }
+            T temp = next.getData();
+            previous = current;
+            current = next;
+            next = next.getNext();
+            return temp;
+        }
 
         public boolean hasNext() {
-            return currentIndex + 1 < size;
+            return next != null;
         }
-            public T next() {
-            ++currentIndex;
-            return T(currentIndex); }
+
+        public void remove() {
+            checkForModification();
+
+            if (current == null) {
+                throw new NoSuchElementException();
+            }
+            if (previous == null) {
+                head = current;
+            } else {
+                previous.setNext(next);
+            }
+            size--;
+        }
+        final void checkForModification() {
+            if (modCount != expectedModCount)
+                throw new ConcurrentModificationException();
+        }
     }
+
     public Iterator<T> iterator() {
         return new MyListIterator();
-    }*/
-
+    }
 }

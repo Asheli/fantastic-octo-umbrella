@@ -1,18 +1,12 @@
 package ru.foe.list.ListMain;
 
-import java.util.Iterator;
 
 public class ListItem<T> {
     private T data;
     private ListItem<T> next;
 
-    public ListItem(T data, ListItem<T> next) {
+    ListItem(T data, ListItem<T> next) {
         this.data = data;
-        this.next = next;
-    }
-
-
-    public ListItem(ListItem<T> next) {
         this.next = next;
     }
 
@@ -30,14 +24,6 @@ public class ListItem<T> {
 
     T getData() {
         return data;
-    }
-
-    private void setData() {
-        setData();
-    }
-
-    public void setData(T data) {
-        this.data = data;
     }
 
     @Override
