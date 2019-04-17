@@ -41,7 +41,7 @@ public class ListMain {
         System.out.println("Удаление первого значения(выдает значение элемента) " + list.removeFirst());
 
         list.reverse();
-        
+
         System.out.println(list1);
         System.out.println(list.getSize());
     }

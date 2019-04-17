@@ -1,7 +1,7 @@
 package ru.fou.shapes;
 
 public interface Shape {
-    double getWidth();
+  double getWidth();
 
     double getHeight();
 
